@@ -26,42 +26,89 @@
       crossorigin
       src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"
     ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"
+      integrity="sha512-kp7YHLxuJDJcOzStgd6vtpxr4ZU9kjn77e6dBsivSz+pUuAuMlE2UTdKB7jjsWT84qbS8kdCWHPETnP/ctrFsA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+
     <!-- links -->
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <div>
-      <h1 class="center-text">Random Text Generator</h1>
-      <div id="quote-box">
-        <div>
-          <p id="text" class="quote">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis a
-            officia id velit, delectus iure sapiente debitis numquam modi totam
-            repellendus nostrum voluptas, ut blanditiis assumenda veritatis ab
-            culpa. Vel!
-          </p>
-          <p id="author">Author Name</p>
-        </div>
+    <div id="app"></div>
+    <script type="text/babel">
+      const buttons = {};
+      const quotes = [
+        {
+          name: "Darth Vader",
+          quote: "I find your lack of faith disturbing.",
+        },
+        {
+          name: "Princess Leia",
+          quote: "Help me, Obi-Wan Kenobi. You're my only hope.",
+        },
+        {
+          name: "Han Solo",
+          quote:
+            "You know, sometimes it's good to just walk away from things and go back to them later when you're in a better frame of mind.",
+        },
 
-        <div class="row space-between">
-          <div class="">
-            <a href="https://www.linkedin.com/in/acme-gamers/">
-              <button><i class="fa-brands fa-linkedin"></i></button>
-            </a>
-            <a href="https://github.com/AcmeGamers">
-              <button><i class="fa-brands fa-github"></i></button>
-            </a>
+        {
+          name: "Lando Calrissian",
+          quote: "I've got a bad feeling about this.",
+        },
+      ];
+      function Button(props) {
+        return (
+          <a href={props.link}>
+            <button id={props.id}>
+              {props.name ? props.name : <i className={props.class}></i>}
+            </button>
+          </a>
+        );
+      }
+
+      function App() {
+        return (
+          <div className="full-height column horiz-center">
+            <h1>Random Text Generator</h1>
+            <div id="quote-box">
+              <div>
+                <p id="text" className="quote">
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  Corporis a officia id velit, delectus iure sapiente debitis
+                  numquam modi totam repellendus nostrum voluptas, ut blanditiis
+                  assumenda veritatis ab culpa. Vel!
+                </p>
+                <p id="author">Author Name</p>
+              </div>
+
+              <div className="row space-between">
+                <div className="left">
+                  <Button
+                    href="https://www.linkedin.com/in/acme-gamers/"
+                    class="fa-brands fa-linkedin"
+                  />
+                  <Button
+                    href="https://github.com/AcmeGamers"
+                    class="fa-brands fa-github"
+                  />
+                </div>
+                <div className="right">
+                  <Button
+                    href="https://twitter.com/Acme_Gamers"
+                    class="fa-brands fa-twitter"
+                  />
+                  <Button href="#" id="#" name="Next Quote" />
+                </div>
+              </div>
+            </div>
           </div>
-          <div class="">
-            <a href="https://twitter.com/Acme_Gamers">
-              <button>
-                <i id="tweet-quote" class="fa-brands fa-twitter"></i>
-              </button>
-            </a>
-            <a href="#"><button id="new-quote">Next Quote</button></a>
-          </div>
-        </div>
-      </div>
-    </div>
+        );
+      }
+      ReactDOM.render(<App />, document.getElementById("app"));
+    </script>
   </body>
 </html>
