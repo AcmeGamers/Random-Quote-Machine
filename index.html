@@ -40,92 +40,93 @@
     <div id="app"></div>
     <script type="text/babel">
       const buttons = {};
-      // const quotes = [
-      //   {
-      //     key: 0,
-      //     author: "Theodore Roosevelt",
-      //     quote:
-      //       "It does not matter how slowly you go as long as you do not stop.",
-      //   },
-      //   {
-      //     key: 1,
-      //     author: "Winston Churchill",
-      //     quote:
-      //       "The pessimist sees difficulty in every opportunity. The optimist sees opportunity in every difficulty.",
-      //   },
-      //   {
-      //     key: 2,
-      //     author: "Albert Einstein",
-      //     quote:
-      //       "Two things are infinite: the universe and human stupidity; and I'm not sure about the universe.",
-      //   },
-      //   {
-      //     key: 3,
-      //     author: "Albert Einstein",
-      //     quote: "I have no special talent. I am only passionately curious.",
-      //   },
-      //   {
-      //     key: 4,
-      //     author: "George Bernard Shaw",
-      //     quote: "Imagination is the beginning of creation.",
-      //   },
-      //   {
-      //     key: 5,
-      //     author: "Albert Einstein",
-      //     quote:
-      //       "If you can't explain it simply, you don't understand it well enough.",
-      //   },
-      //   {
-      //     key: 6,
-      //     author: "Albert Einstein",
-      //     quote: "A person who never made a mistake never tried anything new.",
-      //   },
-      //   {
-      //     key: 7,
-      //     author: "Dennis Ritchie",
-      //     quote:
-      //       "The only way to learn a new programming language is by writing programs in it.",
-      //   },
-      //   {
-      //     key: 8,
-      //     author: "Peter Drucker",
-      //     quote: "The best way to predict the future is to create it.",
-      //   },
-      //   {
-      //     key: 9,
-      //     author: "Albert Einstein",
-      //     quote:
-      //       "If you can't explain it simply, you don't understand it well enough.",
-      //   },
-      //   {
-      //     key: 10,
-      //   },
-      // ];
+      const quotes = [
+        {
+          text: "Genius is one percent inspiration and ninety-nine percent perspiration.",
+          author: "Thomas Edison",
+        },
+        {
+          text: "You can observe a lot just by watching.",
+          author: "Yogi Berra",
+        },
+        {
+          text: "A house divided against itself cannot stand.",
+          author: "Abraham Lincoln",
+        },
+        {
+          text: "Difficulties increase the nearer we get to the goal.",
+          author: "Johann Wolfgang von Goethe",
+        },
+        {
+          text: "Fate is in your hands and no one elses",
+          author: "Byron Pulsifer",
+        },
+        {
+          text: "Be the chief but never the lord.",
+          author: "Lao Tzu",
+        },
+        {
+          text: "Nothing happens unless first we dream.",
+          author: "Carl Sandburg",
+        },
+        {
+          text: "Well begun is half done.",
+          author: "Aristotle",
+        },
+        {
+          text: "Life is a learning experience, only if you learn.",
+          author: "Yogi Berra",
+        },
+        {
+          text: "Self-complacency is fatal to progress.",
+          author: "Margaret Sangster",
+        },
+        {
+          text: "Peace comes from within. Do not seek it without.",
+          author: "Buddha",
+        },
+        {
+          text: "What you give is what you get.",
+          author: "Byron Pulsifer",
+        },
+        {
+          text: "We can only learn to love by loving.",
+          author: "Iris Murdoch",
+        },
+        {
+          text: "Life is change. Growth is optional. Choose wisely.",
+          author: "Karen Clark",
+        },
+        {
+          text: "You'll see it when you believe it.",
+          author: "Wayne Dyer",
+        },
+        {
+          text: "Today is the tomorrow we worried about yesterday.",
+          author: null,
+        },
+      ];
 
-      async function getQuote() {
-        const response = await fetch("https://type.fit/api/quotes");
-        const data = await response.json();
-        // select one random quote
-        const randomQuote = data[Math.floor(Math.random() * data.length)];
-
-        // and output both seperately
-        const quote = randomQuote.text;
-        const author = randomQuote.author;
-
-        return (
-          <div>
-            <p id="text" className="quote">
-              {quote}
-            </p>
-            <p id="author">{author}</p>
-          </div>
-        );
+      //  get random quote whenever clicked
+      function getRandomQuote() {
+        const randomNumber = Math.floor(Math.random() * quotes.length);
+        return quotes[randomNumber];
+      }
+      // and update html data when clicked
+      function updateQuote() {
+        const quote = getRandomQuote();
+        const quoteText = quote.text;
+        const quoteAuthor = quote.author;
+        const quoteAuthorElement = document.getElementById("author");
+        const quoteTextElement = document.getElementById("text");
+        quoteAuthorElement.innerText = quoteAuthor;
+        quoteTextElement.innerText = quoteText;
       }
 
       function Button(props) {
         return (
           <a href={props.link}>
-            <button id={props.id}>
+            <button id={props.id} onClick={props.onClick}>
               {props.name ? props.name : <i className={props.class}></i>}
             </button>
           </a>
@@ -137,7 +138,13 @@
           <div className="full-height column horiz-center">
             <h1>Random Text Generator</h1>
             <div id="quote-box">
-              {getQuote()}
+              <div>
+                <p id="text" className="quote">
+                  {/* get the value each time the quote is updated */}
+                  {getRandomQuote().text}
+                </p>
+                <p id="author">{getRandomQuote().author}</p>
+              </div>
 
               <div className="row space-between">
                 <div className="left">
@@ -155,7 +162,12 @@
                     href="https://twitter.com/Acme_Gamers"
                     class="fa-brands fa-twitter"
                   />
-                  <Button href="#" id="#" name="Next Quote" />
+                  <Button
+                    href="#"
+                    id="#"
+                    name="Next Quote"
+                    onClick={() => updateQuote()}
+                  />
                 </div>
               </div>
             </div>
