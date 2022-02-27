@@ -40,26 +40,88 @@
     <div id="app"></div>
     <script type="text/babel">
       const buttons = {};
-      const quotes = [
-        {
-          name: "Darth Vader",
-          quote: "I find your lack of faith disturbing.",
-        },
-        {
-          name: "Princess Leia",
-          quote: "Help me, Obi-Wan Kenobi. You're my only hope.",
-        },
-        {
-          name: "Han Solo",
-          quote:
-            "You know, sometimes it's good to just walk away from things and go back to them later when you're in a better frame of mind.",
-        },
+      // const quotes = [
+      //   {
+      //     key: 0,
+      //     author: "Theodore Roosevelt",
+      //     quote:
+      //       "It does not matter how slowly you go as long as you do not stop.",
+      //   },
+      //   {
+      //     key: 1,
+      //     author: "Winston Churchill",
+      //     quote:
+      //       "The pessimist sees difficulty in every opportunity. The optimist sees opportunity in every difficulty.",
+      //   },
+      //   {
+      //     key: 2,
+      //     author: "Albert Einstein",
+      //     quote:
+      //       "Two things are infinite: the universe and human stupidity; and I'm not sure about the universe.",
+      //   },
+      //   {
+      //     key: 3,
+      //     author: "Albert Einstein",
+      //     quote: "I have no special talent. I am only passionately curious.",
+      //   },
+      //   {
+      //     key: 4,
+      //     author: "George Bernard Shaw",
+      //     quote: "Imagination is the beginning of creation.",
+      //   },
+      //   {
+      //     key: 5,
+      //     author: "Albert Einstein",
+      //     quote:
+      //       "If you can't explain it simply, you don't understand it well enough.",
+      //   },
+      //   {
+      //     key: 6,
+      //     author: "Albert Einstein",
+      //     quote: "A person who never made a mistake never tried anything new.",
+      //   },
+      //   {
+      //     key: 7,
+      //     author: "Dennis Ritchie",
+      //     quote:
+      //       "The only way to learn a new programming language is by writing programs in it.",
+      //   },
+      //   {
+      //     key: 8,
+      //     author: "Peter Drucker",
+      //     quote: "The best way to predict the future is to create it.",
+      //   },
+      //   {
+      //     key: 9,
+      //     author: "Albert Einstein",
+      //     quote:
+      //       "If you can't explain it simply, you don't understand it well enough.",
+      //   },
+      //   {
+      //     key: 10,
+      //   },
+      // ];
 
-        {
-          name: "Lando Calrissian",
-          quote: "I've got a bad feeling about this.",
-        },
-      ];
+      async function getQuote() {
+        const response = await fetch("https://type.fit/api/quotes");
+        const data = await response.json();
+        // select one random quote
+        const randomQuote = data[Math.floor(Math.random() * data.length)];
+
+        // and output both seperately
+        const quote = randomQuote.text;
+        const author = randomQuote.author;
+
+        return (
+          <div>
+            <p id="text" className="quote">
+              {quote}
+            </p>
+            <p id="author">{author}</p>
+          </div>
+        );
+      }
+
       function Button(props) {
         return (
           <a href={props.link}>
@@ -75,15 +137,7 @@
           <div className="full-height column horiz-center">
             <h1>Random Text Generator</h1>
             <div id="quote-box">
-              <div>
-                <p id="text" className="quote">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Corporis a officia id velit, delectus iure sapiente debitis
-                  numquam modi totam repellendus nostrum voluptas, ut blanditiis
-                  assumenda veritatis ab culpa. Vel!
-                </p>
-                <p id="author">Author Name</p>
-              </div>
+              {getQuote()}
 
               <div className="row space-between">
                 <div className="left">
