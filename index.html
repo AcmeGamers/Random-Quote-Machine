@@ -1,8 +1,3 @@
-<!-- 
-  use props and arrays to save quote
-  use buttons for react elements  
- -->
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -101,10 +96,6 @@
           text: "You'll see it when you believe it.",
           author: "Wayne Dyer",
         },
-        {
-          text: "Today is the tomorrow we worried about yesterday.",
-          author: null,
-        },
       ];
 
       //  get random quote whenever clicked
@@ -112,7 +103,8 @@
         const randomNumber = Math.floor(Math.random() * quotes.length);
         return quotes[randomNumber];
       }
-      // and update html data when clicked
+
+      // Updates HTML Data when clicked
       function updateQuote() {
         const quote = getRandomQuote();
         const quoteText = quote.text;
@@ -125,7 +117,7 @@
 
       function Button(props) {
         return (
-          <a href={props.link}>
+          <a href={props.href} id={props.a_id}>
             <button id={props.id} onClick={props.onClick}>
               {props.name ? props.name : <i className={props.class}></i>}
             </button>
@@ -159,12 +151,19 @@
                 </div>
                 <div className="right">
                   <Button
-                    href="https://twitter.com/Acme_Gamers"
+                    href={
+                      "https://twitter.com/intent/tweet?text=" +
+                      getRandomQuote().text +
+                      " - " +
+                      getRandomQuote().author
+                    }
                     class="fa-brands fa-twitter"
+                    a_id="tweet-quote"
                   />
+
                   <Button
                     href="#"
-                    id="#"
+                    id="new-quote"
                     name="Next Quote"
                     onClick={() => updateQuote()}
                   />
